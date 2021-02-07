@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% block title %}Pets Details{% endblock %}
+{% block content %}
+<h1 class='display-2'>Pets Details</h1>
+<div class="card mb-3" style="max-width: 540px;">
+    <div class="row g-0">
+        <div class="col-md-4">
+            <img src={{form.photo_url.data}} class='img-thumbnail' alt="...">
+        </div>
+        <div class="col-md-8">
+            <div class="card-body">
+
+                <form method="POST">
+                    <!-- add type hidden form fields on submit and need it for CRSF !-->
+                    {{form.hidden_tag() }}
+                    {% for field in form
+                    if field.widget.input_type != 'hidden'%}
+                    <p class="card-text">
+                        {{field.label}}
+                        {{field(class_='form-control')}}
+                        {% for err in field.errors %}
+                        <small class='text-danger'> {{err}}</small>
+                        {% endfor %}
+                    </p>
+                    {% endfor %}
+                    <a class="btn btn-danger" type='button' href="/">Cancel</a>
+                    <button class='btn btn-info' type="submit">Submit</button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

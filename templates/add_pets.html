@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block title %}Add Pets{% endblock %}
+{% block content %}
+<h1 class='display-2'>Add a Pet</h1>
+<div class="row">
+    <form method="POST">
+        <!-- add type hidden form fields on submit and need it for CRSF !-->
+        {{form.hidden_tag() }}
+        {% for field in form
+        if field.widget.input_type != 'hidden'%}
+        <p class="card-text">
+            {{field.label}}
+            {{field(class_='form-control')}}
+            {% for err in field.errors %}
+            <small class='text-danger'> {{err}}</small>
+            {% endfor %}
+        </p>
+        {% endfor %}
+        <button class="btn btn-success" type="submit">Submit</button>
+    </form>
+</div>
+{% endblock %}
